@@ -2,7 +2,7 @@ Summary:	Shared library to access the contents of an iPod
 Name:		libgpod
 Version:	0.1.8
 %define	_snap	20051106
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 Epoch:		0
 License:	GPL v2
 Group:		Libraries
@@ -12,7 +12,7 @@ Source0:	%{name}-%{_snap}.tar.bz2
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
-BuildRequires:	intltool >= 0.21
+BuildRequires:	intltool >= 0.33
 BuildRequires:	pkgconfig
 %if 0%{?_snap:1}
 BuildRequires:	autoconf
@@ -62,6 +62,8 @@ Static libgpod library.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# MKINSTALLDIRS is problem with gettext/automake.
+# See TROUBLESHOOTING file.
 %{__make} install \
 	MKINSTALLDIRS="install -d" \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -78,13 +80,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
-%{_includedir}/gpod-1.0
 
 %files devel
 %defattr(644,root,root,755)
 %{_libdir}/libgpod.la
 %attr(755,root,root) %{_libdir}/libgpod.so
 %{_pkgconfigdir}/libgpod-1.0.pc
+%{_includedir}/gpod-1.0
 
 %files static
 %defattr(644,root,root,755)
