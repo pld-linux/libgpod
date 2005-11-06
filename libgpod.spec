@@ -62,8 +62,8 @@ Static libgpod library.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# MKINSTALLDIRS is problem with gettext/automake.
-# See TROUBLESHOOTING file.
+# MKINSTALLDIRS is problem with combination of gettext-0.14.4 and automake-1.8
+# See TROUBLESHOOTING for more details.
 %{__make} install \
 	MKINSTALLDIRS="install -d" \
 	DESTDIR=$RPM_BUILD_ROOT
