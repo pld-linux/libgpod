@@ -1,4 +1,5 @@
 Summary:	Shared library to access the contents of an iPod
+Summary(pl):	Biblioteka wspó³dzielona do dostêpu do zawarto¶ci iPodów
 Name:		libgpod
 Version:	0.1.8
 %define	_snap	20051106
@@ -27,22 +28,35 @@ libgpod is a library meant to abstract access to an iPod content. It
 provides an easy to use API to retrieve the list of files and playlist
 stored on an iPod, to modify them and to save them back to the iPod.
 
+%description -l pl
+libgpod to biblioteka maj±ca na celu wyabstrahowanie dostêpu do
+zawarto¶ci iPodów. Udostêpnia ³atwe w u¿yciu API do pobierania listy
+plików i playlist zapisanych na iPodzie, modyfikowania ich i
+zapisywania z powrotem na iPoda.
+
 %package devel
-Summary:	Development libraries and header files for libgpod library
+Summary:	Header files for libgpod library
+Summary(pl):	Pliki nag³ówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This is the package containing the development libraries and header
-files for libgpod
+This is the package containing the header files for libgpod library.
+
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe biblioteki libgpod.
 
 %package static
 Summary:	Static libgpod library
+Summary(pl):	Statyczna biblioteka libgpod
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libgpod library.
+
+%description static -l pl
+Statyczna biblioteka libgpod.
 
 %prep
 %setup -q %{?_snap:-n %{name}}
