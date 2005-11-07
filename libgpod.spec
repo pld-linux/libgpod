@@ -10,6 +10,7 @@ Group:		Libraries
 #Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{_snap}.tar.bz2
 # Source0-md5:	7f8237149051cb3a6d0c9f21007b2691
+Patch0:		%{name}-align.patch
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
@@ -60,6 +61,7 @@ Statyczna biblioteka libgpod.
 
 %prep
 %setup -q %{?_snap:-n %{name}}
+%patch0 -p1
 
 %build
 %if 0%{?_snap:1}
