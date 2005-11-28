@@ -1,27 +1,23 @@
 Summary:	Shared library to access the contents of an iPod
 Summary(pl):	Biblioteka wspó³dzielona do dostêpu do zawarto¶ci iPodów
 Name:		libgpod
-Version:	0.1.8
-%define	_snap	20051106
-Release:	0.%{_snap}.2
+Version:	0.2.0
+Release:	1
 Epoch:		0
 License:	GPL v2
 Group:		Libraries
-#Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	7f8237149051cb3a6d0c9f21007b2691
+Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
+# Source0-md5:	9ea91a96805d7e5803397bdd18aa6a80
 Patch0:		%{name}-align.patch
 URL:		http://www.gtkpod.org/libgpod.html
-BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel
-BuildRequires:	intltool >= 0.33
-BuildRequires:	pkgconfig
-%if 0%{?_snap:1}
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	intltool
+BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= 1:2.4.0
+BuildRequires:	hal-devel >= 0.5.2
+BuildRequires:	intltool >= 0.33
 BuildRequires:	libtool
-%endif
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,6 +36,7 @@ Summary:	Header files for libgpod library
 Summary(pl):	Pliki nag³ówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	hal-devel >= 0.5.2
 
 %description devel
 This is the package containing the header files for libgpod library.
@@ -60,28 +57,26 @@ Static libgpod library.
 Statyczna biblioteka libgpod.
 
 %prep
-%setup -q %{?_snap:-n %{name}}
+%setup -q
 %patch0 -p1
 
 %build
-%if 0%{?_snap:1}
 %{__intltoolize}
+%{__glib_gettextize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%endif
-%configure
+%configure \
+	--with-eject-command="/usr/bin/eject" \
+	--with-unmount-command="/bin/umount"
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-# MKINSTALLDIRS is problem with combination of gettext-0.14.4 and automake-1.8
-# See TROUBLESHOOTING for more details.
 %{__make} install \
-	MKINSTALLDIRS="install -d" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name} --all-name
