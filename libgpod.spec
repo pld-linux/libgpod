@@ -1,9 +1,11 @@
+#
 %define		snap	20060715
+#
 Summary:	Shared library to access the contents of an iPod
 Summary(pl):	Biblioteka wspó³dzielona do dostêpu do zawarto¶ci iPodów
 Name:		libgpod
 Version:	0.3.3
-Release:	1
+Release:	2.%{snap}.1
 Epoch:		0
 License:	GPL v2
 Group:		Libraries
@@ -13,13 +15,12 @@ Source0:	%{name}-%{version}-%{snap}.tar.bz2
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.62
+BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.12.0
-BuildRequires:	gtk+2-devel >= 2:2.10.0
-BuildRequires:	hal-devel >= 0.5.7
+BuildRequires:	gtk+2-devel >= 2:2.10.1
+BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	hal-devel < 0.6
-BuildRequires:	intltool >= 0.33
+BuildRequires:	intltool >= 0.35
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,10 +41,9 @@ Summary:	Header files for libgpod library
 Summary(pl):	Pliki nag³ówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-glib-devel >= 0.62
-Requires:	glib2-devel >= 1:2.12.0
-Requires:	gtk+2-devel >= 2:2.10.0
-Requires:	hal-devel >= 0.5.7
+Requires:	dbus-glib-devel >= 0.71
+Requires:	gtk+2-devel >= 2:2.10.1
+Requires:	hal-devel >= 0.5.7.1
 
 %description devel
 This is the package containing the header files for libgpod library.
@@ -68,14 +68,13 @@ Statyczna biblioteka libgpod.
 
 %build
 %{__gtkdocize}
-%{__intltoolize}
 %{__glib_gettextize}
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed" 
 %configure \
 	--with-eject-command="/usr/bin/eject" \
 	--with-unmount-command="/bin/umount"
