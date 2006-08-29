@@ -1,25 +1,26 @@
 #
-%define		snap	20060715
+%define		snap	20060829
 #
 Summary:	Shared library to access the contents of an iPod
 Summary(pl):	Biblioteka wspó³dzielona do dostêpu do zawarto¶ci iPodów
 Name:		libgpod
 Version:	0.3.3
-Release:	2.%{snap}.1
+Release:	1.%{snap}.1
 Epoch:		0
 License:	GPL v2
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}-%{snap}.tar.gz
-Source0:	%{name}-%{version}-%{snap}.tar.bz2
-# Source0-md5:	6d8684739f5229cfe1e97d3f3d086149
+Source0:	%{name}-%{version}-%{snap}.tar.gz
+# Source0-md5:	56152cf76a565f6a31c40bac587925de
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.1
-BuildRequires:	hal-devel >= 0.5.7.1
+BuildRequires:	gtk-doc
 BuildRequires:	hal-devel < 0.6
+BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -64,7 +65,7 @@ Static libgpod library.
 Statyczna biblioteka libgpod.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{snap}
 
 %build
 %{__gtkdocize}
