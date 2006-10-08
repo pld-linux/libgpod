@@ -3,7 +3,6 @@ Summary(pl):	Biblioteka wspó³dzielona do dostêpu do zawarto¶ci iPodów
 Name:		libgpod
 Version:	0.4.0
 Release:	1
-Epoch:		0
 License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
