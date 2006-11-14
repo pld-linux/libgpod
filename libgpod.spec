@@ -19,6 +19,7 @@ BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -59,6 +60,21 @@ Static libgpod library.
 %description static -l pl
 Statyczna biblioteka libgpod.
 
+%package -n python-gpod
+Summary:	Libraries for libgpod access from Python
+Summary(pl):	Biblioteki Pythona dla biblioteki libgpod
+Group:		Development/Languages/Python
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	python-eyeD3 >= 0.6.6
+%pyrequires_eq	python-libs
+
+%description -n python-gpod
+This is the libgpod Python support package.
+
+%description -n python-gpod -l pl
+Biblioteki umo¿liwiaj±ce korzystanie z libgpod z poziomu
+Pythona.
+
 %prep
 %setup -q
 
@@ -73,7 +89,8 @@ Statyczna biblioteka libgpod.
 %{__automake}
 %configure \
 	--with-eject-command="/usr/bin/eject" \
-	--with-unmount-command="/bin/umount"
+	--with-unmount-command="/bin/umount" \
+	--with-python=yes
 %{__make}
 
 %install
@@ -105,3 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgpod.a
+
+%files -n python-gpod
+%defattr(644,root,root,755)
+%{py_sitescriptdir}/*
