@@ -7,19 +7,25 @@ License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 # Source0-md5:	e427e0409b0cb2d7e76b17915b1396fa
+Patch0:		%{name}-python.patch
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.71
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.1
-BuildRequires:	gtk-doc
+BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	hal-devel < 0.6
 BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
+BuildRequires:	rpm-pythonprov
+BuildRequires:	swig-python >= 1.3.24
+# for noinst test only
+#BuildRequires:	taglib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,9 +68,9 @@ Statyczna biblioteka libgpod.
 
 %package -n python-gpod
 Summary:	Libraries for libgpod access from Python
-Summary(pl):	Biblioteki Pythona dla biblioteki libgpod
+Summary(pl):	Biblioteki Pythona umo¿liwiaj±ce korzystanie z libgpod
 Group:		Development/Languages/Python
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 Requires:	python-eyeD3 >= 0.6.6
 %pyrequires_eq	python-libs
 
@@ -77,6 +83,7 @@ Pythona.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__gtkdocize}
@@ -88,8 +95,7 @@ Pythona.
 %{__autoheader}
 %{__automake}
 %configure \
-	--with-eject-command="/usr/bin/eject" \
-	--with-unmount-command="/bin/umount" \
+	--with-html-dir=%{_gtkdocdir} \
 	--with-python=yes
 %{__make}
 
@@ -98,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -114,10 +122,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libgpod.la
 %attr(755,root,root) %{_libdir}/libgpod.so
+%{_libdir}/libgpod.la
 %{_pkgconfigdir}/libgpod-1.0.pc
 %{_includedir}/gpod-1.0
+%{_gtkdocdir}/libgpod
 
 %files static
 %defattr(644,root,root,755)
@@ -125,4 +134,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-gpod
 %defattr(644,root,root,755)
-%{py_sitescriptdir}/*
+%dir %{py_sitedir}/gpod
+%{py_sitedir}/gpod/*.py[co]
+%attr(755,root,root) %{py_sitedir}/gpod/_gpod.so
