@@ -10,9 +10,9 @@ Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.71
+BuildRequires:	dbus-glib-devel >= 0.30
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.10.1
+BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	hal-devel < 0.6
 BuildRequires:	hal-devel >= 0.5.7.1
@@ -43,8 +43,8 @@ Summary:	Header files for libgpod library
 Summary(pl):	Pliki nag³ówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-glib-devel >= 0.71
-Requires:	gtk+2-devel >= 2:2.10.1
+Requires:	dbus-glib-devel >= 0.30
+Requires:	gtk+2-devel >= 2.0
 Requires:	hal-devel >= 0.5.7.1
 
 %description devel
