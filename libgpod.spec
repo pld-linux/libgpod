@@ -1,5 +1,5 @@
 Summary:	Shared library to access the contents of an iPod
-Summary(pl):	Biblioteka wsp蟪dzielona do dost阷u do zawarto禼i iPod體
+Summary(pl.UTF-8):   Biblioteka wsp贸艂dzielona do dost臋pu do zawarto艣ci iPod贸w
 Name:		libgpod
 Version:	0.4.2
 Release:	1
@@ -32,15 +32,15 @@ libgpod is a library meant to abstract access to an iPod content. It
 provides an easy to use API to retrieve the list of files and playlist
 stored on an iPod, to modify them and to save them back to the iPod.
 
-%description -l pl
-libgpod to biblioteka maj眂a na celu wyabstrahowanie dost阷u do
-zawarto禼i iPod體. Udost阷nia 砤twe w u縴ciu API do pobierania listy
-plik體 i playlist zapisanych na iPodzie, modyfikowania ich i
+%description -l pl.UTF-8
+libgpod to biblioteka maj膮ca na celu wyabstrahowanie dost臋pu do
+zawarto艣ci iPod贸w. Udost臋pnia 艂atwe w u偶yciu API do pobierania listy
+plik贸w i playlist zapisanych na iPodzie, modyfikowania ich i
 zapisywania z powrotem na iPoda.
 
 %package devel
 Summary:	Header files for libgpod library
-Summary(pl):	Pliki nag丑wkowe biblioteki libgpod
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	dbus-glib-devel >= 0.71
@@ -50,24 +50,24 @@ Requires:	hal-devel >= 0.5.7.1
 %description devel
 This is the package containing the header files for libgpod library.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag丑wkowe biblioteki libgpod.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nag艂贸wkowe biblioteki libgpod.
 
 %package static
 Summary:	Static libgpod library
-Summary(pl):	Statyczna biblioteka libgpod
+Summary(pl.UTF-8):   Statyczna biblioteka libgpod
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libgpod library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libgpod.
 
 %package -n python-gpod
 Summary:	Libraries for libgpod access from Python
-Summary(pl):	Biblioteki Pythona umo縧iwiaj眂e korzystanie z libgpod
+Summary(pl.UTF-8):   Biblioteki Pythona umo偶liwiaj膮ce korzystanie z libgpod
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-eyeD3 >= 0.6.6
@@ -76,8 +76,8 @@ Requires:	python-eyeD3 >= 0.6.6
 %description -n python-gpod
 This is the libgpod Python support package.
 
-%description -n python-gpod -l pl
-Biblioteki umo縧iwiaj眂e korzystanie z libgpod z poziomu
+%description -n python-gpod -l pl.UTF-8
+Biblioteki umo偶liwiaj膮ce korzystanie z libgpod z poziomu
 Pythona.
 
 %prep
