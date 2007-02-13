@@ -1,5 +1,5 @@
 Summary:	Shared library to access the contents of an iPod
-Summary(pl.UTF-8):   Biblioteka współdzielona do dostępu do zawartości iPodów
+Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.4.2
 Release:	1
@@ -40,7 +40,7 @@ zapisywania z powrotem na iPoda.
 
 %package devel
 Summary:	Header files for libgpod library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libgpod
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	dbus-glib-devel >= 0.71
@@ -55,7 +55,7 @@ Ten pakiet zawiera pliki nagłówkowe biblioteki libgpod.
 
 %package static
 Summary:	Static libgpod library
-Summary(pl.UTF-8):   Statyczna biblioteka libgpod
+Summary(pl.UTF-8):	Statyczna biblioteka libgpod
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -67,7 +67,7 @@ Statyczna biblioteka libgpod.
 
 %package -n python-gpod
 Summary:	Libraries for libgpod access from Python
-Summary(pl.UTF-8):   Biblioteki Pythona umożliwiające korzystanie z libgpod
+Summary(pl.UTF-8):	Biblioteki Pythona umożliwiające korzystanie z libgpod
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-eyeD3 >= 0.6.6
