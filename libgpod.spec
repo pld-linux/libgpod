@@ -2,7 +2,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.5.2
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
@@ -66,6 +66,18 @@ Static libgpod library.
 %description static -l pl.UTF-8
 Statyczna biblioteka libgpod.
 
+%package apidocs
+Summary:	libgpod API documentation
+Summary(pl.UTF-8):	Dokumentacja API biblioteki libgpod
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+libgpod API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki libgpod.
+
 %package -n python-gpod
 Summary:	Libraries for libgpod access from Python
 Summary(pl.UTF-8):	Biblioteki Pythona umożliwiające korzystanie z libgpod
@@ -78,8 +90,7 @@ Requires:	python-eyeD3 >= 0.6.6
 This is the libgpod Python support package.
 
 %description -n python-gpod -l pl.UTF-8
-Biblioteki umożliwiające korzystanie z libgpod z poziomu
-Pythona.
+Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 
 %prep
 %setup -q
@@ -104,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.{la,a}
+
 %py_postclean
 
 %find_lang %{name} --all-name
@@ -125,11 +138,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgpod.la
 %{_pkgconfigdir}/libgpod-1.0.pc
 %{_includedir}/gpod-1.0
-%{_gtkdocdir}/libgpod
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgpod.a
+
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/libgpod
 
 %files -n python-gpod
 %defattr(644,root,root,755)
