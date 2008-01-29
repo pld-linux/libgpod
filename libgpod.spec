@@ -23,6 +23,7 @@ BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.11
 BuildRequires:	rpm-pythonprov
+BuildRequires:	sg3_utils-devel
 BuildRequires:	swig-python >= 1.3.24
 # for noinst test only
 #BuildRequires:	taglib-devel
