@@ -10,9 +10,9 @@ Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.71
+BuildRequires:	dbus-glib-devel >= 0.30
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.10.1
+BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	hal-devel < 0.6
 BuildRequires:	hal-devel >= 0.5.7.1
@@ -21,7 +21,7 @@ BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
-BuildRequires:	python-mutagen >= 1.11
+BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sg3_utils-devel
 BuildRequires:	swig-python >= 1.3.24
@@ -46,8 +46,8 @@ Summary:	Header files for libgpod library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-glib-devel >= 0.71
-Requires:	gtk+2-devel >= 2:2.10.1
+Requires:	dbus-glib-devel >= 0.30
+Requires:	gtk+2-devel >= 2.0
 Requires:	hal-devel >= 0.5.7.1
 
 %description devel
@@ -134,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgpod.so.3
 %attr(755,root,root) %{_libdir}/hal/libgpod-callout
 %{_datadir}/hal/fdi/policy/20thirdparty/20-libgpod-sysinfo-extended.fdi
 
