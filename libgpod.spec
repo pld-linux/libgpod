@@ -2,7 +2,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.6.0
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
@@ -27,7 +27,7 @@ BuildRequires:	sg3_utils-devel
 BuildRequires:	swig-python >= 1.3.24
 # for noinst test only
 #BuildRequires:	taglib-devel
-Requires:	hal
+Suggests:	hal-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,6 +40,20 @@ libgpod to biblioteka mająca na celu wyabstrahowanie dostępu do
 zawartości iPodów. Udostępnia łatwe w użyciu API do pobierania listy
 plików i playlist zapisanych na iPodzie, modyfikowania ich i
 zapisywania z powrotem na iPoda.
+
+%package -n hal-libgpod
+Summary:	HAL callout program for iPod devices
+Summary(pl.UTF-8):	Program wywoływany przez HAL dla urządzeń iPod
+Group:		Applications/System
+Requires:	%{name} = %{version}-%{release}
+Requires:	hal >= 0.5
+
+%description -n hal-libgpod
+HAL callout program to initialize iPod devices for libgpod library.
+
+%description -n hal-libgpod -l pl.UTF-8
+Program wywoływany przez HAL do przygotowywania urządzeń iPod do
+użytku z biblioteką libgpod.
 
 %package devel
 Summary:	Header files for libgpod library
@@ -135,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpod.so.3
+
+%files -n hal-libgpod
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/hal/libgpod-callout
 %{_datadir}/hal/fdi/policy/20thirdparty/20-libgpod-sysinfo-extended.fdi
 
