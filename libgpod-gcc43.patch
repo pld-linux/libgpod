@@ -1,0 +1,10 @@
+--- libgpod-0.6.0/tests/test-rebuild-db.cc.orig	2008-07-02 18:24:52.327456003 +0200
++++ libgpod-0.6.0/tests/test-rebuild-db.cc	2008-07-02 18:25:13.326012820 +0200
+@@ -24,6 +24,7 @@
+ #  include <config.h>
+ #endif
+ 
++#include <cstring>
+ #include <stdlib.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
