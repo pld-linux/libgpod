@@ -7,6 +7,7 @@ License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 # Source0-md5:	b44d8aee3f6610370b6faf61770c5f3c
+Patch0:		%{name}-gcc43.patch
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -110,6 +111,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__gtkdocize}
