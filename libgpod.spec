@@ -2,12 +2,13 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.6.0
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 # Source0-md5:	b44d8aee3f6610370b6faf61770c5f3c
 Patch0:		%{name}-gcc43.patch
+Patch1:		%{name}-sgutils.patch
 URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -24,7 +25,7 @@ BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	rpm-pythonprov
-BuildRequires:	sg3_utils-devel
+BuildRequires:	sg3_utils-devel >= 1.26
 BuildRequires:	swig-python >= 1.3.24
 # for noinst test only
 #BuildRequires:	taglib-devel
@@ -112,6 +113,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
