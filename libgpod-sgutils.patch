@@ -1,0 +1,25 @@
+diff -ur libgpod-0.6.0.orig/configure.ac libgpod-0.6.0/configure.ac
+--- libgpod-0.6.0.orig/configure.ac	2007-11-06 21:03:35.000000000 +0100
++++ libgpod-0.6.0/configure.ac	2008-07-30 08:38:03.000000000 +0200
+@@ -78,8 +78,8 @@
+ dnl **************************************************
+ dnl * sgutils is necessary to get the xml device file from the ipod
+ dnl **************************************************
+-AC_CHECK_LIB(sgutils, sg_ll_inquiry,
+-             [SGUTILS_LIBS="-lsgutils"; have_sgutils=yes], 
++AC_CHECK_LIB(sgutils2, sg_ll_inquiry,
++             [SGUTILS_LIBS="-lsgutils2"; have_sgutils=yes], 
+ 	     have_sgutils=no)
+ AC_SUBST(SGUTILS_LIBS)
+ AM_CONDITIONAL(HAVE_SGUTILS, test x"$have_sgutils" = xyes)
+diff -ur libgpod-0.6.0.orig/tools/ipod-scsi-inquiry.c libgpod-0.6.0/tools/ipod-scsi-inquiry.c
+--- libgpod-0.6.0.orig/tools/ipod-scsi-inquiry.c	2007-11-10 10:40:27.000000000 +0100
++++ libgpod-0.6.0/tools/ipod-scsi-inquiry.c	2008-07-30 08:34:30.000000000 +0200
+@@ -30,6 +30,7 @@
+ #include <fcntl.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include <scsi/sg_cmds.h>
