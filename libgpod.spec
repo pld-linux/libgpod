@@ -113,7 +113,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -152,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgpod.so.3
+%attr(755,root,root) %ghost %{_libdir}/libgpod.so.?
 
 %files -n hal-libgpod
 %defattr(644,root,root,755)
