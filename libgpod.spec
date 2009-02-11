@@ -1,3 +1,5 @@
+# TODO
+# check: http://fred.uwcs.co.uk/diff (from http://www.fredemmott.co.uk/blog_121)
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
@@ -113,7 +115,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 %prep
 %setup -q
 %patch0 -p1
-#%patch1 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -152,7 +154,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgpod.so.?
+%attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
 
 %files -n hal-libgpod
 %defattr(644,root,root,755)
