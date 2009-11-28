@@ -14,6 +14,7 @@ URL:		http://www.gtkpod.org/libgpod.html
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.30
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	gtk-doc >= 1.0
