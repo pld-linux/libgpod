@@ -3,14 +3,14 @@
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
-Version:	0.7.2
-Release:	2
+Version:	0.7.93
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
-# Source0-md5:	1ec69c3a19fb071b1639cdcaf68463c1
+Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
+# Source0-md5:	7d8ce00d78de50cb2414260512201b46
 Patch0:		%{name}-gcc43.patch
-URL:		http://www.gtkpod.org/libgpod.html
+URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.30
@@ -158,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n hal-libgpod
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/hal/scripts/libgpod-callout
+%attr(755,root,root) %{_libdir}/hal/scripts/iphone-callout
 %{_datadir}/hal/fdi/policy/20thirdparty/20-libgpod-sysinfo-extended.fdi
 
 %files devel
