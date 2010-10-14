@@ -3,12 +3,12 @@
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
-Version:	0.7.93
+Version:	0.7.95
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
-# Source0-md5:	7d8ce00d78de50cb2414260512201b46
+# Source0-md5:	8a761f678677a425436107cbd87aecf3
 Patch0:		%{name}-gcc43.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
