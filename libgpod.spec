@@ -1,14 +1,19 @@
 # TODO
 # check: http://fred.uwcs.co.uk/diff (from http://www.fredemmott.co.uk/blog_121)
+# TODO
+# - mono bindings:
+#%{_pkgconfigdir}/libgpod-sharp.pc
+#MONO_MIN_VERSION=1.9.1
+#GTK_SHARP_MIN_VERSION=2.12
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
-Version:	0.7.95
-Release:	1
+Version:	0.8.0
+Release:	0.1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
-# Source0-md5:	8a761f678677a425436107cbd87aecf3
+# Source0-md5:	6660f74cc53293dcc847407aa5f672ce
 Patch0:		%{name}-gcc43.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
@@ -127,6 +132,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 %{__automake}
 %configure \
 	--with-html-dir=%{_gtkdocdir} \
+	--with-temp-mount-dir=/tmp \
 	--with-python=yes
 %{__make}
 
