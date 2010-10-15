@@ -1,10 +1,11 @@
 # TODO
 # check: http://fred.uwcs.co.uk/diff (from http://www.fredemmott.co.uk/blog_121)
-# TODO
-# - mono bindings:
-#%{_pkgconfigdir}/libgpod-sharp.pc
-#MONO_MIN_VERSION=1.9.1
-#GTK_SHARP_MIN_VERSION=2.12
+# some warning at doc build:
+#warning: failed to load external entity "../../docs/reference/xml/*.xml"
+#unable to parse ../../docs/reference/xml/*.xml
+#make[3]: [gpod_doc.i] Error 6 (ignored)
+# - mountdir perms?: %dir %{_localstatedir}/run/%{name}
+# - dotnet pkg executable bits for .exe?
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
@@ -20,6 +21,7 @@ BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.30
 BuildRequires:	docbook-dtd412-xml
+BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	gtk-doc >= 1.0
@@ -27,6 +29,7 @@ BuildRequires:	hal-devel < 0.6
 BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libtool
+BuildRequires:	mono-devel >= 1.9.1
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
@@ -117,6 +120,29 @@ This is the libgpod Python support package.
 %description -n python-gpod -l pl.UTF-8
 Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 
+%package -n dotnet-%{name}-sharp
+Summary:	C#/.NET library to access iPod content
+Group:		Development/Languages
+Requires:	%{name} = %{version}-%{release}
+
+%description -n dotnet-%{name}-sharp
+C#/.NET library to access iPod content. Provides bindings to the
+libgpod library.
+
+%package -n dotnet-%{name}-sharp-devel
+Summary:	C#/.NET library to access iPod content
+Summary:	Development files for libgpod-sharp
+Group:		Development/Languages
+Requires:	dotnet-%{name}-sharp = %{version}-%{release}
+Requires:	pkgconfig
+
+%description -n dotnet-%{name}-sharp-devel
+C#/.NET library to access iPod content. Provides bindings to the
+libgpod library.
+
+This package contains the files required to develop programs that will
+use dotnet-libgpod-sharp.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -132,7 +158,7 @@ Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
 %{__automake}
 %configure \
 	--with-html-dir=%{_gtkdocdir} \
-	--with-temp-mount-dir=/tmp \
+	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
 	--with-python=yes
 %{__make}
 
@@ -160,6 +186,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
+%dir %{_localstatedir}/run/%{name}
 
 %files -n hal-libgpod
 %defattr(644,root,root,755)
@@ -187,3 +214,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/gpod
 %{py_sitedir}/gpod/*.py[co]
 %attr(755,root,root) %{py_sitedir}/gpod/_gpod.so
+
+%files -n dotnet-%{name}-sharp
+%defattr(644,root,root,755)
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/%{name}-sharp-test.exe
+%{_libdir}/%{name}/%{name}-sharp-test.exe.mdb
+%{_libdir}/%{name}/%{name}-sharp.dll
+%{_libdir}/%{name}/%{name}-sharp.dll.config
+%{_libdir}/%{name}/%{name}-sharp.dll.mdb
+
+%files -n dotnet-%{name}-sharp-devel
+%defattr(644,root,root,755)
+%{_pkgconfigdir}/%{name}-sharp.pc
