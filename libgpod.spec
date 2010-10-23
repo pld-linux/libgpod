@@ -6,6 +6,8 @@
 #make[3]: [gpod_doc.i] Error 6 (ignored)
 # - mountdir perms?: %dir %{_localstatedir}/run/%{name}
 # - dotnet pkg executable bits for .exe?
+%include	/usr/lib/rpm/macros.mono
+#
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
@@ -19,24 +21,32 @@ Patch0:		%{name}-gcc43.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.30
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12
+BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
+BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2.0
+BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	hal-devel < 0.6
 BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
+BuildRequires:	libimobiledevice-devel >= 0.9.7
+BuildRequires:	libplist-devel >= 1.0.0
 BuildRequires:	libtool
+BuildRequires:	libusb-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	mono-devel >= 1.9.1
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.8
+BuildRequires:	python-pygobject-devel >= 2.8.0
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(monoautodeps)
 BuildRequires:	sg3_utils-devel >= 1.26
+BuildRequires:	sqlite3-devel
 BuildRequires:	swig-python >= 1.3.24
+BuildRequires:	zlib-devel
 # for noinst test only
 #BuildRequires:	taglib-devel
 Suggests:	hal-libgpod = %{version}-%{release}
@@ -72,9 +82,8 @@ Summary:	Header files for libgpod library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgpod
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	dbus-glib-devel >= 0.30
-Requires:	gtk+2-devel >= 2.0
-Requires:	hal-devel >= 0.5.7.1
+Requires:	gdk-pixbuf2-devel >= 2.6.0
+Requires:	glib2-devel >= 1:2.16.0
 
 %description devel
 This is the package containing the header files for libgpod library.
@@ -130,7 +139,6 @@ C#/.NET library to access iPod content. Provides bindings to the
 libgpod library.
 
 %package -n dotnet-%{name}-sharp-devel
-Summary:	C#/.NET library to access iPod content
 Summary:	Development files for libgpod-sharp
 Group:		Development/Languages
 Requires:	dotnet-%{name}-sharp = %{version}-%{release}
@@ -157,6 +165,8 @@ use dotnet-libgpod-sharp.
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-silent-rules \
+	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
 	--with-python=yes
@@ -217,13 +227,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n dotnet-%{name}-sharp
 %defattr(644,root,root,755)
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/%{name}-sharp-test.exe
-%{_libdir}/%{name}/%{name}-sharp-test.exe.mdb
-%{_libdir}/%{name}/%{name}-sharp.dll
-%{_libdir}/%{name}/%{name}-sharp.dll.config
-%{_libdir}/%{name}/%{name}-sharp.dll.mdb
+%dir %{_libdir}/libgpod
+%{_libdir}/libgpod/libgpod-sharp-test.exe
+%{_libdir}/libgpod/libgpod-sharp-test.exe.mdb
+%{_libdir}/libgpod/libgpod-sharp.dll
+%{_libdir}/libgpod/libgpod-sharp.dll.config
+%{_libdir}/libgpod/libgpod-sharp.dll.mdb
 
 %files -n dotnet-%{name}-sharp-devel
 %defattr(644,root,root,755)
-%{_pkgconfigdir}/%{name}-sharp.pc
+%{_pkgconfigdir}/libgpod-sharp.pc
