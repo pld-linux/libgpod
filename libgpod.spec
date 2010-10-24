@@ -11,12 +11,13 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 # Source0-md5:	6660f74cc53293dcc847407aa5f672ce
 Patch0:		%{name}-gcc43.patch
+Patch1:		%{name}-monodir.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -163,6 +164,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -236,12 +238,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n dotnet-%{name}-sharp
 %defattr(644,root,root,755)
-%dir %{_libdir}/libgpod
-%{_libdir}/libgpod/libgpod-sharp-test.exe
-%{_libdir}/libgpod/libgpod-sharp-test.exe.mdb
-%{_libdir}/libgpod/libgpod-sharp.dll
-%{_libdir}/libgpod/libgpod-sharp.dll.config
-%{_libdir}/libgpod/libgpod-sharp.dll.mdb
+%dir %{_prefix}/lib/libgpod
+%{_prefix}/lib/libgpod/libgpod-sharp-test.exe
+%{_prefix}/lib/libgpod/libgpod-sharp-test.exe.mdb
+%{_prefix}/lib/libgpod/libgpod-sharp.dll
+%{_prefix}/lib/libgpod/libgpod-sharp.dll.config
+%{_prefix}/lib/libgpod/libgpod-sharp.dll.mdb
 
 %files -n dotnet-%{name}-sharp-devel
 %defattr(644,root,root,755)
