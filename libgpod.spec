@@ -5,14 +5,13 @@
 #unable to parse ../../docs/reference/xml/*.xml
 #make[3]: [gpod_doc.i] Error 6 (ignored)
 # - mountdir perms?: %dir %{_localstatedir}/run/%{name}
-# - dotnet pkg executable bits for .exe?
 %include	/usr/lib/rpm/macros.mono
 #
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.0
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
@@ -116,8 +115,8 @@ libgpod API documentation.
 Dokumentacja API biblioteki libgpod.
 
 %package -n python-gpod
-Summary:	Libraries for libgpod access from Python
-Summary(pl.UTF-8):	Biblioteki Pythona umożliwiające korzystanie z libgpod
+Summary:	Module for libgpod access from Python
+Summary(pl.UTF-8):	Moduł Pythona umożliwiający korzystanie z biblioteki libgpod
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-eyeD3 >= 0.6.6
@@ -127,10 +126,12 @@ Requires:	python-eyeD3 >= 0.6.6
 This is the libgpod Python support package.
 
 %description -n python-gpod -l pl.UTF-8
-Biblioteki umożliwiające korzystanie z libgpod z poziomu Pythona.
+Moduł umożliwiający korzystanie z biblioteki libgpod z poziomu
+Pythona.
 
 %package -n dotnet-%{name}-sharp
 Summary:	C#/.NET library to access iPod content
+Summary(pl.UTF-8):	Biblioteka C#/.NET pozwalajaca na dostęp do iPoda
 Group:		Development/Languages
 Requires:	%{name} = %{version}-%{release}
 
@@ -138,8 +139,13 @@ Requires:	%{name} = %{version}-%{release}
 C#/.NET library to access iPod content. Provides bindings to the
 libgpod library.
 
+%description -n dotnet-%{name}-sharp -l pl.UTF-8
+Biblioteka C#/.NET pozwalająca na dostęp do iPoda. Udostępnia wiązania
+do biblioteki libgpod.
+
 %package -n dotnet-%{name}-sharp-devel
 Summary:	Development files for libgpod-sharp
+Summary(pl.UTF-8):	Development files for libgpod-sharp
 Group:		Development/Languages
 Requires:	dotnet-%{name}-sharp = %{version}-%{release}
 Requires:	pkgconfig
@@ -150,6 +156,9 @@ libgpod library.
 
 This package contains the files required to develop programs that will
 use dotnet-libgpod-sharp.
+
+%description -n dotnet-%{name}-sharp-devel -l pl.UTF-8
+Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 
 %prep
 %setup -q
