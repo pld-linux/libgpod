@@ -1,0 +1,21 @@
+diff -urN libgpod-0.8.0/bindings/mono/libgpod-sharp/libgpod-sharp.pc.in libgpod-0.8.0.new//bindings/mono/libgpod-sharp/libgpod-sharp.pc.in
+--- libgpod-0.8.0/bindings/mono/libgpod-sharp/libgpod-sharp.pc.in	2010-10-09 22:46:03.000000000 +0200
++++ libgpod-0.8.0.new//bindings/mono/libgpod-sharp/libgpod-sharp.pc.in	2010-10-24 18:49:16.497730672 +0200
+@@ -1,4 +1,4 @@
+-Libraries=@expanded_libdir@/@PACKAGE@/libgpod-sharp.dll
++Libraries=@prefix@/lib/@PACKAGE@/libgpod-sharp.dll
+ 
+ Name: libgpod-sharp
+ Description: libgpod-sharp
+diff -urN libgpod-0.8.0/bindings/mono/Makefile.include libgpod-0.8.0.new//bindings/mono/Makefile.include
+--- libgpod-0.8.0/bindings/mono/Makefile.include	2010-10-09 22:46:03.000000000 +0200
++++ libgpod-0.8.0.new//bindings/mono/Makefile.include	2010-10-24 18:54:03.683559849 +0200
+@@ -3,7 +3,7 @@
+ ASSEMBLY_EXTENSION = $(strip $(patsubst library, dll, $(TARGET)))
+ ASSEMBLY_FILE = $(ASSEMBLY).$(ASSEMBLY_EXTENSION)
+ 
+-DEFAULT_INSTALL_DIR = $(pkglibdir)
++DEFAULT_INSTALL_DIR = $(prefix)/lib/$(PACKAGE)
+ INSTALL_DIR_RESOLVED = $(firstword $(subst , $(DEFAULT_INSTALL_DIR), $(INSTALL_DIR)))
+ 
+ OUTPUT_FILES = \
