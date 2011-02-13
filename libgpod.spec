@@ -11,7 +11,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.0
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
@@ -189,7 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.la \
+        $RPM_BUILD_ROOT%{_libdir}/libgpod.la
 
 %py_postclean
 
@@ -218,7 +219,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgpod.so
-%{_libdir}/libgpod.la
 %{_pkgconfigdir}/libgpod-1.0.pc
 %{_includedir}/gpod-1.0
 
