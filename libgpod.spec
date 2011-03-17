@@ -47,6 +47,7 @@ BuildRequires:	sg3_utils-devel >= 1.26
 BuildRequires:	sqlite3-devel
 BuildRequires:	swig-python >= 1.3.24
 BuildRequires:	zlib-devel
+BuildRequires:	libsmbios-devel
 # for noinst test only
 #BuildRequires:	taglib-devel
 Suggests:	hal-libgpod = %{version}-%{release}
