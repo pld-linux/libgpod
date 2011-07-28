@@ -11,7 +11,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.0
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
@@ -27,8 +27,6 @@ BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
-BuildRequires:	hal-devel < 0.6
-BuildRequires:	hal-devel >= 0.5.7.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libimobiledevice-devel >= 0.9.7
 BuildRequires:	libplist-devel >= 1.0.0
@@ -50,7 +48,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	libsmbios-devel
 # for noinst test only
 #BuildRequires:	taglib-devel
-Suggests:	hal-libgpod = %{version}-%{release}
+Suggests:	udev-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -64,18 +62,19 @@ zawartości iPodów. Udostępnia łatwe w użyciu API do pobierania listy
 plików i playlist zapisanych na iPodzie, modyfikowania ich i
 zapisywania z powrotem na iPoda.
 
-%package -n hal-libgpod
-Summary:	HAL callout program for iPod devices
-Summary(pl.UTF-8):	Program wywoływany przez HAL dla urządzeń iPod
+%package -n udev-libgpod
+Summary:	UDEV rules and programs for iPod devices
+Summary(pl.UTF-8):	Reguły i programy używane przez UDEV dla urządzeń iPod
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
-Requires:	hal >= 0.5
+Obsoletes:	hal-libgpod
 
-%description -n hal-libgpod
-HAL callout program to initialize iPod devices for libgpod library.
+%description -n udev-libgpod
+UDEV rules and programs to initialize iPod devices for libgpod
+library.
 
-%description -n hal-libgpod -l pl.UTF-8
-Program wywoływany przez HAL do przygotowywania urządzeń iPod do
+%description -n udev-libgpod -l pl.UTF-8
+Reguły i program dla UDEV do przygotowywania urządzeń iPod do
 użytku z biblioteką libgpod.
 
 %package devel
@@ -181,7 +180,10 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 	--enable-gtk-doc \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
-	--with-python=yes
+	--with-python=yes \
+	--without-hal \
+	--enable-udev
+
 %{__make}
 
 %install
@@ -211,11 +213,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
 %dir %{_localstatedir}/run/%{name}
 
-%files -n hal-libgpod
+%files -n udev-libgpod
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/hal/scripts/libgpod-callout
-%attr(755,root,root) %{_libdir}/hal/scripts/iphone-callout
-%{_datadir}/hal/fdi/policy/20thirdparty/20-libgpod-sysinfo-extended.fdi
+%attr(755,root,root) /lib/udev/iphone-set-info
+%attr(755,root,root) /lib/udev/ipod-set-info
+/lib/udev/rules.d/90-libgpod.rules
 
 %files devel
 %defattr(644,root,root,755)
