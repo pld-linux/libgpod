@@ -16,6 +16,7 @@ License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
 # Source0-md5:	6660f74cc53293dcc847407aa5f672ce
+Source1:	%{name}.tmpfiles
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
 URL:		http://www.gtkpod.org/libgpod/
@@ -188,12 +189,15 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/usr/lib/tmpfiles.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.la \
         $RPM_BUILD_ROOT%{_libdir}/libgpod.la
+
+install %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 
 %py_postclean
 
@@ -212,6 +216,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
 %dir %{_localstatedir}/run/%{name}
+/usr/lib/tmpfiles.d/%{name}.conf
 
 %files -n udev-libgpod
 %defattr(644,root,root,755)
