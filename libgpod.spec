@@ -10,12 +10,12 @@
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
-Version:	0.8.0
-Release:	7
+Version:	0.8.2
+Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.gz
-# Source0-md5:	6660f74cc53293dcc847407aa5f672ce
+Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
+# Source0-md5:	ff0fd875fa08f2a6a49dec57ce3367ab
 Source1:	%{name}.tmpfiles
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
@@ -31,6 +31,7 @@ BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libimobiledevice-devel >= 0.9.7
 BuildRequires:	libplist-devel >= 1.0.0
+BuildRequires:	libsmbios-devel
 BuildRequires:	libtool
 BuildRequires:	libusb-devel
 BuildRequires:	libxml2-devel
@@ -41,12 +42,12 @@ BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	python-pygobject-devel >= 2.8.0
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.647
 BuildRequires:	rpmbuild(monoautodeps)
 BuildRequires:	sg3_utils-devel >= 1.26
 BuildRequires:	sqlite3-devel
 BuildRequires:	swig-python >= 1.3.24
 BuildRequires:	zlib-devel
-BuildRequires:	libsmbios-devel
 # for noinst test only
 #BuildRequires:	taglib-devel
 Suggests:	udev-libgpod = %{version}-%{release}
@@ -75,8 +76,8 @@ UDEV rules and programs to initialize iPod devices for libgpod
 library.
 
 %description -n udev-libgpod -l pl.UTF-8
-Reguły i program dla UDEV do przygotowywania urządzeń iPod do
-użytku z biblioteką libgpod.
+Reguły i program dla UDEV do przygotowywania urządzeń iPod do użytku z
+biblioteką libgpod.
 
 %package devel
 Summary:	Header files for libgpod library
@@ -189,7 +190,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/lib/tmpfiles.d
+install -d $RPM_BUILD_ROOT%{systemdtmpfilesdir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -197,7 +198,7 @@ install -d $RPM_BUILD_ROOT/usr/lib/tmpfiles.d
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.la \
         $RPM_BUILD_ROOT%{_libdir}/libgpod.la
 
-install %{SOURCE1} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 
 %py_postclean
 
@@ -216,7 +217,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
 %dir %{_localstatedir}/run/%{name}
-/usr/lib/tmpfiles.d/%{name}.conf
+%{systemdtmpfilesdir}/%{name}.conf
 
 %files -n udev-libgpod
 %defattr(644,root,root,755)
