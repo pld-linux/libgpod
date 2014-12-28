@@ -25,7 +25,7 @@ BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
 BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35
