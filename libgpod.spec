@@ -5,13 +5,20 @@
 #unable to parse ../../docs/reference/xml/*.xml
 #make[3]: [gpod_doc.i] Error 6 (ignored)
 # - mountdir perms?: %dir %{_localstatedir}/run/%{name}
-%include	/usr/lib/rpm/macros.mono
 #
+# Conditional build:
+%bcond_without	dotnet	# without .NET support
+
+%ifarch x32
+%undefine	with_dotnet
+%endif
+
+%{?with_dotnet:%include	/usr/lib/rpm/macros.mono}
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.2
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -23,7 +30,7 @@ URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
+%{?with_dotnet:BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0}
 BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.16.0
@@ -35,7 +42,7 @@ BuildRequires:	libsmbios-devel
 BuildRequires:	libtool
 BuildRequires:	libusb-devel
 BuildRequires:	libxml2-devel
-BuildRequires:	mono-devel >= 1.9.1
+%{?with_dotnet:BuildRequires:	mono-devel >= 1.9.1}
 BuildRequires:	pkgconfig
 BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
@@ -43,7 +50,7 @@ BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	python-pygobject-devel >= 2.8.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.647
-BuildRequires:	rpmbuild(monoautodeps)
+%{?with_dotnet:BuildRequires:	rpmbuild(monoautodeps)}
 BuildRequires:	sg3_utils-devel >= 1.26
 BuildRequires:	sqlite3-devel
 BuildRequires:	swig-python >= 1.3.24
@@ -180,6 +187,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %configure \
 	--disable-silent-rules \
 	--enable-gtk-doc \
+	--enable-mono%{!?with_dotnet:=no} \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
 	--with-python=yes \
@@ -245,6 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/gpod/*.py[co]
 %attr(755,root,root) %{py_sitedir}/gpod/_gpod.so
 
+%if %{with dotnet}
 %files -n dotnet-%{name}-sharp
 %defattr(644,root,root,755)
 %dir %{_prefix}/lib/libgpod
@@ -257,3 +266,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n dotnet-%{name}-sharp-devel
 %defattr(644,root,root,755)
 %{_pkgconfigdir}/libgpod-sharp.pc
+%endif
