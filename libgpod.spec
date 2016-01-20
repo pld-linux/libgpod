@@ -17,12 +17,12 @@
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
-Version:	0.8.2
-Release:	4
+Version:	0.8.3
+Release:	0.1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
-# Source0-md5:	ff0fd875fa08f2a6a49dec57ce3367ab
+# Source0-md5:	f8a0b7a34e768e33a708e8dd172bd6f8
 Source1:	%{name}.tmpfiles
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
@@ -36,7 +36,7 @@ BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35
-BuildRequires:	libimobiledevice-devel >= 0.9.7
+BuildRequires:	libimobiledevice-devel >= 1.1.5
 BuildRequires:	libplist-devel >= 1.0.0
 BuildRequires:	libsmbios-devel
 BuildRequires:	libtool
