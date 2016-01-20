@@ -8,7 +8,7 @@
 #
 # Conditional build:
 %bcond_without	dotnet	# without .NET support
-%bcond_without	python	# without Python bindings
+%bcond_with	python	# without Python bindings
 
 %ifarch x32
 %undefine	with_dotnet
@@ -19,7 +19,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
