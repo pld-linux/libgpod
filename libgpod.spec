@@ -8,6 +8,7 @@
 #
 # Conditional build:
 %bcond_without	dotnet	# without .NET support
+%bcond_without	python	# without Python bindings
 
 %ifarch x32
 %undefine	with_dotnet
@@ -30,7 +31,6 @@ URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
-%{?with_dotnet:BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0}
 BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.16.0
@@ -42,21 +42,26 @@ BuildRequires:	libsmbios-devel
 BuildRequires:	libtool
 BuildRequires:	libusb-devel
 BuildRequires:	libxml2-devel
-%{?with_dotnet:BuildRequires:	mono-devel >= 1.9.1}
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.647
+BuildRequires:	sg3_utils-devel >= 1.26
+BuildRequires:	sqlite3-devel
+BuildRequires:	zlib-devel
+# for noinst test only
+#BuildRequires:	taglib-devel
+%if %{with dotnet}
+BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
+BuildRequires:	mono-devel >= 1.9.1
+BuildRequires:	rpmbuild(monoautodeps)
+%endif
+%if %{with python}
 BuildRequires:	python-devel >= 2.1.1
 BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	python-pygobject-devel >= 2.8.0
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.647
-%{?with_dotnet:BuildRequires:	rpmbuild(monoautodeps)}
-BuildRequires:	sg3_utils-devel >= 1.26
-BuildRequires:	sqlite3-devel
 BuildRequires:	swig-python >= 1.3.24
-BuildRequires:	zlib-devel
-# for noinst test only
-#BuildRequires:	taglib-devel
+%endif
 Suggests:	udev-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -130,7 +135,7 @@ Summary(pl.UTF-8):	Moduł Pythona umożliwiający korzystanie z biblioteki libgp
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-eyeD3 >= 0.6.6
-%pyrequires_eq	python-libs
+Requires:	python-libs
 
 %description -n python-gpod
 This is the libgpod Python support package.
@@ -190,7 +195,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 	--enable-mono%{!?with_dotnet:=no} \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
-	--with-python=yes \
+	--with-python=%{!?with_python:no}%{?with_python:yes} \
 	--without-hal \
 	--enable-udev
 
@@ -203,12 +208,14 @@ install -d $RPM_BUILD_ROOT%{systemdtmpfilesdir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.la \
-        $RPM_BUILD_ROOT%{_libdir}/libgpod.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgpod.la
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 
+%if %{with python}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/gpod/*.la
 %py_postclean
+%endif
 
 %find_lang %{name} --all-name
 
@@ -247,11 +254,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/libgpod
 
+%if %{with python}
 %files -n python-gpod
 %defattr(644,root,root,755)
 %dir %{py_sitedir}/gpod
 %{py_sitedir}/gpod/*.py[co]
 %attr(755,root,root) %{py_sitedir}/gpod/_gpod.so
+%endif
 
 %if %{with dotnet}
 %files -n dotnet-%{name}-sharp
