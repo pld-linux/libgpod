@@ -19,7 +19,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -27,6 +27,7 @@ Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
 Source1:	%{name}.tmpfiles
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
+Patch2:		mono4.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
@@ -179,6 +180,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__gtkdocize}
