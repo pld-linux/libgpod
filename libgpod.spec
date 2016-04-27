@@ -19,7 +19,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -52,8 +52,8 @@ BuildRequires:	zlib-devel
 #BuildRequires:	taglib-devel
 %if %{with dotnet}
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
-BuildRequires:	mono-devel >= 1.9.1
 BuildRequires:	mono-csharp
+BuildRequires:	mono-devel >= 1.9.1
 BuildRequires:	rpmbuild(monoautodeps)
 %endif
 %if %{with python}
@@ -124,6 +124,9 @@ Summary:	libgpod API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libgpod
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 libgpod API documentation.
