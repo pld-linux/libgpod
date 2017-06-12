@@ -1,0 +1,15 @@
+--- libgpod-0.8.3/bindings/python/gpod.i.in.orig	2013-07-09 17:34:38.000000000 +0200
++++ libgpod-0.8.3/bindings/python/gpod.i.in	2017-06-12 16:52:12.709248181 +0200
+@@ -298,9 +298,9 @@
+ %include "gpod_doc.i"
+ %include "@top_builddir@/config.h"
+ 
+-# be nicer to decode these utf8 strings into Unicode objects in the C
+-# layer. Here we are leaving it to the Python side, and just giving
+-# them utf8 encoded Strings.
++/* be nicer to decode these utf8 strings into Unicode objects in the C
++  layer. Here we are leaving it to the Python side, and just giving
++  them utf8 encoded Strings. */
+ typedef char gchar;
+ 
+ %typemap(in) time_t {

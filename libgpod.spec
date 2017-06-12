@@ -7,8 +7,8 @@
 # - mountdir perms?: %dir %{_localstatedir}/run/%{name}
 #
 # Conditional build:
-%bcond_without	dotnet	# without .NET support
-%bcond_with	python	# without Python bindings
+%bcond_without	dotnet	# .NET bindings
+%bcond_without	python	# Python bindings
 
 %ifarch x32
 %undefine	with_dotnet
@@ -19,7 +19,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -28,8 +28,9 @@ Source1:	%{name}.tmpfiles
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
 Patch2:		mono4.patch
+Patch3:		%{name}-swig.patch
 URL:		http://www.gtkpod.org/libgpod/
-BuildRequires:	autoconf >= 2.52
+BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.6.0
@@ -40,30 +41,32 @@ BuildRequires:	intltool >= 0.35
 BuildRequires:	libimobiledevice-devel >= 1.1.5
 BuildRequires:	libplist-devel >= 1.0.0
 BuildRequires:	libsmbios-devel
-BuildRequires:	libtool
-BuildRequires:	libusb-devel
-BuildRequires:	libxml2-devel
+BuildRequires:	libtool >= 2:2
+BuildRequires:	libusb-devel >= 1.0
+BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.647
 BuildRequires:	sg3_utils-devel >= 1.26
-BuildRequires:	sqlite3-devel
+BuildRequires:	sqlite3-devel >= 3
 BuildRequires:	zlib-devel
 # for noinst test only
 #BuildRequires:	taglib-devel
 %if %{with dotnet}
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
-BuildRequires:	mono-csharp
+BuildRequires:	mono-csharp >= 1.9.1
 BuildRequires:	mono-devel >= 1.9.1
 BuildRequires:	rpmbuild(monoautodeps)
 %endif
 %if %{with python}
 BuildRequires:	python-devel >= 2.1.1
-BuildRequires:	python-eyeD3 >= 0.6.6
 BuildRequires:	python-mutagen >= 1.8
 BuildRequires:	python-pygobject-devel >= 2.8.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	swig-python >= 1.3.24
 %endif
+Requires:	glib2 >= 1:2.16.0
+Requires:	libimobiledevice >= 1.1.5
+Requires:	libplist >= 1.0.0
 Suggests:	udev-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -139,8 +142,9 @@ Summary:	Module for libgpod access from Python
 Summary(pl.UTF-8):	Moduł Pythona umożliwiający korzystanie z biblioteki libgpod
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-eyeD3 >= 0.6.6
 Requires:	python-libs
+Requires:	python-mutagen >= 1.8
+Requires:	python-pygobject >= 2.8.0
 
 %description -n python-gpod
 This is the libgpod Python support package.
@@ -185,6 +189,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__gtkdocize}
@@ -199,11 +204,11 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 	--disable-silent-rules \
 	--enable-gtk-doc \
 	--enable-mono%{!?with_dotnet:=no} \
+	--enable-udev \
 	--with-html-dir=%{_gtkdocdir} \
+	--with-python%{!?with_python:=no} \
 	--with-temp-mount-dir=%{_localstatedir}/run/%{name} \
-	--with-python=%{!?with_python:no}%{?with_python:yes} \
-	--without-hal \
-	--enable-udev
+	--without-hal
 
 %{__make}
 
