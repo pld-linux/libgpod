@@ -14,7 +14,6 @@
 %undefine	with_dotnet
 %endif
 
-%{?with_dotnet:%include	/usr/lib/rpm/macros.mono}
 Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
