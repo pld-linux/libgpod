@@ -18,7 +18,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	6
+Release:	7
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -28,6 +28,7 @@ Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-monodir.patch
 Patch2:		mono4.patch
 Patch3:		%{name}-swig.patch
+Patch4:		%{name}-libplist.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -38,7 +39,7 @@ BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libimobiledevice-devel >= 1.1.5
-BuildRequires:	libplist-devel >= 1.0.0
+BuildRequires:	libplist-devel >= 2.2.0
 BuildRequires:	libsmbios-devel
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libusb-devel >= 1.0
@@ -65,7 +66,7 @@ BuildRequires:	swig-python >= 1.3.24
 %endif
 Requires:	glib2 >= 1:2.16.0
 Requires:	libimobiledevice >= 1.1.5
-Requires:	libplist >= 1.0.0
+Requires:	libplist >= 2.2.0
 Suggests:	udev-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -189,6 +190,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__gtkdocize}
