@@ -127,9 +127,7 @@ Summary:	libgpod API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libgpod
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 libgpod API documentation.
