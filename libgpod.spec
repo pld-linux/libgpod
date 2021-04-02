@@ -55,7 +55,6 @@ BuildRequires:	zlib-devel
 BuildRequires:	dotnet-gtk-sharp2-devel >= 2.12.0
 BuildRequires:	mono-csharp >= 1.9.1
 BuildRequires:	mono-devel >= 1.9.1
-BuildRequires:	rpmbuild(monoautodeps)
 %endif
 %if %{with python}
 BuildRequires:	python-devel >= 2.1.1
