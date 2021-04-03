@@ -45,6 +45,7 @@ BuildRequires:	libtool >= 2:2
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.647
 BuildRequires:	sg3_utils-devel >= 1.26
 BuildRequires:	sqlite3-devel >= 3
