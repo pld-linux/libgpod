@@ -5,7 +5,37 @@
  dnl sqlite3 is needed for newer ipod models (nano5g), and libplist is needed 
  dnl by libgpod sqlite code
 -PKG_CHECK_MODULES(LIBGPOD, glib-2.0 >= 2.16.0 gobject-2.0 sqlite3 libplist >= 1.0 gmodule-2.0)
-+PKG_CHECK_MODULES(LIBGPOD, glib-2.0 >= 2.16.0 gobject-2.0 sqlite3 libplist-2.0 >= 2.2.0 gmodule-2.0)
++PKG_CHECK_MODULES(LIBGPOD, glib-2.0 >= 2.16.0 gobject-2.0 sqlite3 libplist-2.0 >= 2.3.0 gmodule-2.0)
  
  dnl ***************************************************
  dnl The following functions are only available starting
+--- libgpod-0.8.3/tools/ipod-lockdown.c.orig	2013-07-10 15:57:39.000000000 +0200
++++ libgpod-0.8.3/tools/ipod-lockdown.c	2023-11-26 19:04:23.262902798 +0100
+@@ -100,7 +100,7 @@ read_sysinfo_extended_by_uuid (const cha
+ 	plist_get_string_val(ptr, &str);
+ 	if (str != NULL) {
+ 	    ptr = plist_new_string(str);
+-	    plist_dict_insert_item(value, "SerialNumber", ptr);
++	    plist_dict_set_item(value, "SerialNumber", ptr);
+ 	    free(str);
+ 	}
+ 
+@@ -112,15 +112,15 @@ read_sysinfo_extended_by_uuid (const cha
+ 	plist_get_string_val(ptr, &str);
+ 	if (str != NULL) {
+ 	    ptr = plist_new_string(str);
+-	    plist_dict_insert_item(value, "VisibleBuildID", ptr);
++	    plist_dict_set_item(value, "VisibleBuildID", ptr);
+ 	    free(str);
+ 	}
+ 
+ 	ptr = plist_new_string(uuid);
+-	plist_dict_insert_item(value, "FireWireGUID", ptr);
++	plist_dict_set_item(value, "FireWireGUID", ptr);
+ 
+ 	ptr = plist_new_string(uuid);
+-	plist_dict_insert_item(value, "UniqueDeviceID", ptr);
++	plist_dict_set_item(value, "UniqueDeviceID", ptr);
+ 
+ 	plist_to_xml(value, &xml, &xml_length);
+ 

@@ -18,7 +18,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	9
+Release:	10
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -39,7 +39,7 @@ BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.35
 BuildRequires:	libimobiledevice-devel >= 1.1.5
-BuildRequires:	libplist-devel >= 2.2.0
+BuildRequires:	libplist-devel >= 2.3.0
 BuildRequires:	libsmbios-devel
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libusb-devel >= 1.0
@@ -66,7 +66,7 @@ BuildRequires:	swig-python >= 1.3.24
 %endif
 Requires:	glib2 >= 1:2.16.0
 Requires:	libimobiledevice >= 1.1.5
-Requires:	libplist >= 2.2.0
+Requires:	libplist >= 2.3.0
 Suggests:	udev-libgpod = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -86,7 +86,7 @@ Summary:	UDEV rules and programs for iPod devices
 Summary(pl.UTF-8):	Reguły i programy używane przez UDEV dla urządzeń iPod
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	hal-libgpod
+Obsoletes:	hal-libgpod < 0.8.0-5
 
 %description -n udev-libgpod
 UDEV rules and programs to initialize iPod devices for libgpod
