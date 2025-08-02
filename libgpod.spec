@@ -7,7 +7,7 @@
 # - mountdir perms?: %dir %{_localstatedir}/run/%{name}
 #
 # Conditional build:
-%bcond_without	dotnet	# .NET bindings
+%bcond_with	dotnet	# .NET bindings
 %bcond_without	python	# Python bindings
 
 %ifarch x32
@@ -18,7 +18,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	13
+Release:	14
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -29,6 +29,7 @@ Patch1:		%{name}-monodir.patch
 Patch2:		mono4.patch
 Patch3:		%{name}-swig.patch
 Patch4:		%{name}-libplist.patch
+Patch5:		build.patch
 URL:		http://www.gtkpod.org/libgpod/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -189,6 +190,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
+%patch -P5 -p1
 
 %build
 %{__gtkdocize}
@@ -200,6 +202,7 @@ Pliki programistyczne biblioteki C#/.NET libgpod-sharp.
 %{__autoheader}
 %{__automake}
 %configure \
+	PYTHON=%{__python} \
 	--disable-silent-rules \
 	--enable-gtk-doc \
 	--enable-mono%{!?with_dotnet:=no} \
