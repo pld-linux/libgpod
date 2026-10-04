@@ -18,7 +18,7 @@ Summary:	Shared library to access the contents of an iPod
 Summary(pl.UTF-8):	Biblioteka współdzielona do dostępu do zawartości iPodów
 Name:		libgpod
 Version:	0.8.3
-Release:	16
+Release:	17
 License:	GPL v2
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -242,8 +242,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/ipod-read-sysinfo-extended
-%attr(755,root,root) %{_libdir}/libgpod.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgpod.so.4
+%{_libdir}/libgpod.so.*.*.*
+%ghost %{_libdir}/libgpod.so.4
 %dir %{_localstatedir}/run/%{name}
 %{systemdtmpfilesdir}/%{name}.conf
 
@@ -255,7 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgpod.so
+%{_libdir}/libgpod.so
 %{_pkgconfigdir}/libgpod-1.0.pc
 %{_includedir}/gpod-1.0
 
@@ -272,7 +272,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %dir %{py_sitedir}/gpod
 %{py_sitedir}/gpod/*.py[co]
-%attr(755,root,root) %{py_sitedir}/gpod/_gpod.so
+%{py_sitedir}/gpod/_gpod.so
 %endif
 
 %if %{with dotnet}
